@@ -182,6 +182,8 @@ namespace ShiroDownloader
             launcherProfilesJson["profiles"][newProfileKey] = newProfile;
 
             File.WriteAllText(pathMinecraft + "\\launcher_profiles.json", launcherProfilesJson.ToString());
+
+            MessageBox.Show("Installation Done", "Shiro", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
