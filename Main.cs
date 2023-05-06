@@ -85,8 +85,7 @@ namespace ShiroDownloader
             string name = "RLCraft";
             string url = "https://mediafilez.forgecdn.net/files/4487/650/RLCraft+Server+Pack+1.12.2+-+Release+v2.9.2d.zip";
 
-            Profile();
-            //DownloadModpack(name, url);
+            DownloadModpack(name, url);
         }
 
         private void DownloadModpack(string name, string url)
@@ -161,6 +160,9 @@ namespace ShiroDownloader
             Console.WriteLine("Clearing temp files.");
             if (!Directory.EnumerateFileSystemEntries(tempPath).Any()) Directory.Delete(tempPath);
             if (File.Exists(zipFile)) File.Delete(zipFile);
+
+            if (premium) Profile();
+            else MessageBox.Show("Installation Done", "Shiro", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void Profile()
