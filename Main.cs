@@ -53,13 +53,13 @@ namespace ShiroDownloader
             {
                 modRLCBtn.Visible = false;
                 modRLC.Visible = true;
-                modRLC.Text = $"Installed on \"{pathMod + modRLCName}\"";
+                modRLC.Text = $"Installed on \"{pathMod + "\\" + modRLCName}\"";
             }
             if (Directory.Exists(pathMod + "\\" + modSF4Name))
             {
                 modSF4Btn.Visible = false;
                 modSF4.Visible = true;
-                modSF4.Text = $"Installed on \"{pathMod + modSF4Name}\"";
+                modSF4.Text = $"Installed on \"{pathMod + "\\" + modSF4Name}\"";
             }
         }
 
