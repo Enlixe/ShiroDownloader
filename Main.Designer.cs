@@ -29,107 +29,107 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            this.modRLCBtn = new System.Windows.Forms.Button();
+            this.modRLC = new System.Windows.Forms.Label();
+            this.modSF4Btn = new System.Windows.Forms.Button();
+            this.modSF4 = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.Label();
-            this.textStatusMain = new System.Windows.Forms.Label();
-            this.textStatus = new System.Windows.Forms.Label();
-            this.btnMcDownload = new System.Windows.Forms.Button();
             this.modTitle = new System.Windows.Forms.Label();
-            this.mod1Text = new System.Windows.Forms.Label();
-            this.mod1Button = new System.Windows.Forms.Button();
-            this.mod1Progress = new System.Windows.Forms.Label();
+            this.modRLCText = new System.Windows.Forms.Label();
+            this.modSF4Text = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // modRLCBtn
+            // 
+            this.modRLCBtn.BackColor = System.Drawing.Color.Transparent;
+            this.modRLCBtn.ForeColor = System.Drawing.Color.DimGray;
+            this.modRLCBtn.Location = new System.Drawing.Point(103, 127);
+            this.modRLCBtn.Name = "modRLCBtn";
+            this.modRLCBtn.Size = new System.Drawing.Size(71, 23);
+            this.modRLCBtn.TabIndex = 7;
+            this.modRLCBtn.Text = "Download";
+            this.modRLCBtn.UseVisualStyleBackColor = false;
+            this.modRLCBtn.Click += new System.EventHandler(this.modRLCBtn_Click);
+            // 
+            // modRLC
+            // 
+            this.modRLC.AutoSize = true;
+            this.modRLC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modRLC.ForeColor = System.Drawing.Color.MediumPurple;
+            this.modRLC.Location = new System.Drawing.Point(103, 130);
+            this.modRLC.Name = "modRLC";
+            this.modRLC.Size = new System.Drawing.Size(62, 16);
+            this.modRLC.TabIndex = 8;
+            this.modRLC.Text = "Progress";
+            this.modRLC.Visible = false;
+            // 
+            // modSF4Btn
+            // 
+            this.modSF4Btn.BackColor = System.Drawing.Color.Transparent;
+            this.modSF4Btn.ForeColor = System.Drawing.Color.DimGray;
+            this.modSF4Btn.Location = new System.Drawing.Point(136, 156);
+            this.modSF4Btn.Name = "modSF4Btn";
+            this.modSF4Btn.Size = new System.Drawing.Size(71, 23);
+            this.modSF4Btn.TabIndex = 10;
+            this.modSF4Btn.Text = "Download";
+            this.modSF4Btn.UseVisualStyleBackColor = false;
+            this.modSF4Btn.Click += new System.EventHandler(this.modSF4Btn_Click);
+            // 
+            // modSF4
+            // 
+            this.modSF4.AutoSize = true;
+            this.modSF4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modSF4.ForeColor = System.Drawing.Color.MediumPurple;
+            this.modSF4.Location = new System.Drawing.Point(136, 159);
+            this.modSF4.Name = "modSF4";
+            this.modSF4.Size = new System.Drawing.Size(62, 16);
+            this.modSF4.TabIndex = 11;
+            this.modSF4.Text = "Progress";
+            this.modSF4.Visible = false;
             // 
             // title
             // 
             this.title.AutoSize = true;
-            this.title.Font = new System.Drawing.Font("Sans Serif Collection", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title.ForeColor = System.Drawing.Color.Purple;
-            this.title.Location = new System.Drawing.Point(12, 9);
+            this.title.Font = new System.Drawing.Font("Sans Serif Collection", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title.ForeColor = System.Drawing.Color.Indigo;
+            this.title.Location = new System.Drawing.Point(12, 12);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(260, 47);
-            this.title.TabIndex = 0;
+            this.title.Size = new System.Drawing.Size(276, 47);
+            this.title.TabIndex = 12;
             this.title.Text = "Shiro Downloader";
-            // 
-            // textStatusMain
-            // 
-            this.textStatusMain.AutoSize = true;
-            this.textStatusMain.BackColor = System.Drawing.Color.Transparent;
-            this.textStatusMain.Font = new System.Drawing.Font("Sans Serif Collection", 6.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textStatusMain.ForeColor = System.Drawing.Color.DarkMagenta;
-            this.textStatusMain.Location = new System.Drawing.Point(26, 52);
-            this.textStatusMain.Name = "textStatusMain";
-            this.textStatusMain.Size = new System.Drawing.Size(181, 23);
-            this.textStatusMain.TabIndex = 1;
-            this.textStatusMain.Text = "Minecraft installation status :";
-            // 
-            // textStatus
-            // 
-            this.textStatus.AutoSize = true;
-            this.textStatus.BackColor = System.Drawing.Color.Transparent;
-            this.textStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textStatus.ForeColor = System.Drawing.Color.MediumVioletRed;
-            this.textStatus.Location = new System.Drawing.Point(204, 54);
-            this.textStatus.Name = "textStatus";
-            this.textStatus.Size = new System.Drawing.Size(72, 16);
-            this.textStatus.TabIndex = 2;
-            this.textStatus.Text = "Checking...";
-            // 
-            // btnMcDownload
-            // 
-            this.btnMcDownload.BackColor = System.Drawing.Color.Transparent;
-            this.btnMcDownload.Enabled = false;
-            this.btnMcDownload.ForeColor = System.Drawing.Color.DimGray;
-            this.btnMcDownload.Location = new System.Drawing.Point(207, 73);
-            this.btnMcDownload.Name = "btnMcDownload";
-            this.btnMcDownload.Size = new System.Drawing.Size(100, 23);
-            this.btnMcDownload.TabIndex = 3;
-            this.btnMcDownload.Text = "Download Now";
-            this.btnMcDownload.UseVisualStyleBackColor = false;
-            this.btnMcDownload.Visible = false;
-            this.btnMcDownload.Click += new System.EventHandler(this.btnMcDownload_Click);
             // 
             // modTitle
             // 
             this.modTitle.AutoSize = true;
-            this.modTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modTitle.ForeColor = System.Drawing.Color.DarkMagenta;
-            this.modTitle.Location = new System.Drawing.Point(25, 112);
+            this.modTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modTitle.ForeColor = System.Drawing.Color.Indigo;
+            this.modTitle.Location = new System.Drawing.Point(15, 85);
             this.modTitle.Name = "modTitle";
-            this.modTitle.Size = new System.Drawing.Size(111, 25);
-            this.modTitle.TabIndex = 5;
+            this.modTitle.Size = new System.Drawing.Size(124, 29);
+            this.modTitle.TabIndex = 13;
             this.modTitle.Text = "Modpacks";
             // 
-            // mod1Text
+            // modRLCText
             // 
-            this.mod1Text.AutoSize = true;
-            this.mod1Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mod1Text.Location = new System.Drawing.Point(33, 146);
-            this.mod1Text.Name = "mod1Text";
-            this.mod1Text.Size = new System.Drawing.Size(69, 20);
-            this.mod1Text.TabIndex = 6;
-            this.mod1Text.Text = "RL Craft";
+            this.modRLCText.AutoSize = true;
+            this.modRLCText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modRLCText.ForeColor = System.Drawing.Color.BlueViolet;
+            this.modRLCText.Location = new System.Drawing.Point(21, 124);
+            this.modRLCText.Name = "modRLCText";
+            this.modRLCText.Size = new System.Drawing.Size(76, 24);
+            this.modRLCText.TabIndex = 14;
+            this.modRLCText.Text = "RL-Craft";
             // 
-            // mod1Button
+            // modSF4Text
             // 
-            this.mod1Button.BackColor = System.Drawing.Color.Transparent;
-            this.mod1Button.ForeColor = System.Drawing.Color.DimGray;
-            this.mod1Button.Location = new System.Drawing.Point(108, 146);
-            this.mod1Button.Name = "mod1Button";
-            this.mod1Button.Size = new System.Drawing.Size(71, 23);
-            this.mod1Button.TabIndex = 7;
-            this.mod1Button.Text = "Download";
-            this.mod1Button.UseVisualStyleBackColor = false;
-            this.mod1Button.Click += new System.EventHandler(this.mod1Button_Click);
-            // 
-            // mod1Progress
-            // 
-            this.mod1Progress.AutoSize = true;
-            this.mod1Progress.Location = new System.Drawing.Point(185, 151);
-            this.mod1Progress.Name = "mod1Progress";
-            this.mod1Progress.Size = new System.Drawing.Size(48, 13);
-            this.mod1Progress.TabIndex = 8;
-            this.mod1Progress.Text = "Progress";
-            this.mod1Progress.Visible = false;
+            this.modSF4Text.AutoSize = true;
+            this.modSF4Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modSF4Text.ForeColor = System.Drawing.Color.BlueViolet;
+            this.modSF4Text.Location = new System.Drawing.Point(21, 153);
+            this.modSF4Text.Name = "modSF4Text";
+            this.modSF4Text.Size = new System.Drawing.Size(109, 24);
+            this.modSF4Text.TabIndex = 15;
+            this.modSF4Text.Text = "Skyfactory 4";
             // 
             // Main
             // 
@@ -137,14 +137,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.mod1Progress);
-            this.Controls.Add(this.mod1Button);
-            this.Controls.Add(this.mod1Text);
+            this.Controls.Add(this.modSF4Text);
+            this.Controls.Add(this.modRLCText);
             this.Controls.Add(this.modTitle);
-            this.Controls.Add(this.btnMcDownload);
-            this.Controls.Add(this.textStatusMain);
             this.Controls.Add(this.title);
-            this.Controls.Add(this.textStatus);
+            this.Controls.Add(this.modSF4);
+            this.Controls.Add(this.modSF4Btn);
+            this.Controls.Add(this.modRLC);
+            this.Controls.Add(this.modRLCBtn);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -158,15 +158,14 @@
         }
 
         #endregion
-
+        private System.Windows.Forms.Button modRLCBtn;
+        private System.Windows.Forms.Label modRLC;
+        private System.Windows.Forms.Button modSF4Btn;
+        private System.Windows.Forms.Label modSF4;
         private System.Windows.Forms.Label title;
-        private System.Windows.Forms.Label textStatusMain;
-        private System.Windows.Forms.Label textStatus;
-        private System.Windows.Forms.Button btnMcDownload;
         private System.Windows.Forms.Label modTitle;
-        private System.Windows.Forms.Label mod1Text;
-        private System.Windows.Forms.Button mod1Button;
-        private System.Windows.Forms.Label mod1Progress;
+        private System.Windows.Forms.Label modRLCText;
+        private System.Windows.Forms.Label modSF4Text;
     }
 }
 
