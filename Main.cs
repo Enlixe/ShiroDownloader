@@ -1,17 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Security.Policy;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
+
+using Newtonsoft.Json.Linq;
 
 namespace ShiroDownloader
 {
@@ -43,8 +37,9 @@ namespace ShiroDownloader
         private void Main_Shown(object sender, EventArgs e)
         {
             if (!Checking.checkpassed) {
-                this.Hide();
+                Hide();
                 Checking c = new Checking();
+                c.Closed += (s, args) => Close();
                 c.Show();
                 return;
             }

@@ -1,16 +1,8 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShiroDownloader
@@ -107,22 +99,25 @@ namespace ShiroDownloader
 
         private void Continue()
         {
-            Console.WriteLine(checkPass);
+            Console.WriteLine("Checking passed : " + checkPass);
             if (checkPass == 3) {
                 ContinueBtn.Enabled = true;
                 ContinueBtn.Visible = true;
                 checkpassed = true;
+                Console.WriteLine("Checking passed, can continue");
             }
             else
             {
                 ContinueBtn.Visible = false;
                 checkpassed = false;
+                Console.WriteLine("Checking isnt passed");
             }
         }
         private void ContinueBtn_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             Main m = new Main();
+            m.Closed += (s, args) => Close();
             m.Show();
         }
 
