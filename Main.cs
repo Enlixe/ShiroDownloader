@@ -58,18 +58,18 @@ namespace ShiroDownloader
             }
         }
 
-        private void modRLCBtn_Click(object senders, EventArgs ea)
+        private async void modRLCBtn_Click(object senders, EventArgs ea)
         {
             modRLCBtn.Visible = false;
             modRLC.Visible = true;
-            StartDownload(modRLCName, modRLCUrl, modRLC);
+            await StartDownload(modRLCName, modRLCUrl, modRLC);
         }
 
-        private void modSF4Btn_Click(object sender, EventArgs e)
+        private async void modSF4Btn_Click(object sender, EventArgs e)
         {
             modSF4Btn.Visible = false;
             modSF4.Visible = true;
-            StartDownload(modSF4Name, modSF4Url, modSF4);
+            await StartDownload(modSF4Name, modSF4Url, modSF4);
         }
 
         private async Task StartDownload(string name, string url, Label progress)
@@ -114,6 +114,7 @@ namespace ShiroDownloader
             name = AppDomain.CurrentDomain.BaseDirectory + name;
             Console.WriteLine($"Moving {name} to {to}");
             File.Move(name, to);
+            await Task.Delay(1000);
         }
 
         private async Task Unzip(string name, string modFileZip,Label progress)
@@ -143,6 +144,7 @@ namespace ShiroDownloader
             }
             Console.WriteLine("Unzip complete.");
             progress.Text = $"Unzip completed.";
+            await Task.Delay(1000);
         }
 
         private async Task Clearing(string modZip, Label progress)
@@ -152,12 +154,15 @@ namespace ShiroDownloader
             // if (!Directory.EnumerateFileSystemEntries(tempPath).Any()) Directory.Delete(tempPath);
             Directory.Delete(tempPath, true);
             File.Delete(modZip);
+            await Task.Delay(1000);
         }
 
         private async Task Profile(string name, Label progress)
         {
             Console.WriteLine("Creating new launcher profiles.");
             progress.Text = $"Creating new launcher profiles.";
+            await Task.Delay(1000);
+
             JObject launcherProfilesJson = JObject.Parse(File.ReadAllText(pathMc + "\\launcher_profiles.json"));
             JObject newProfile = new JObject(
                 new JProperty("created", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")),
