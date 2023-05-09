@@ -108,7 +108,6 @@ namespace ShiroDownloader
                 progress.Text = "Download - Completed.";
             }
         }
-
         private async Task MoveFile(string name, string to)
         {
             name = AppDomain.CurrentDomain.BaseDirectory + name;
@@ -116,7 +115,6 @@ namespace ShiroDownloader
             File.Move(name, to);
             await Task.Delay(1000);
         }
-
         private async Task Unzip(string name, string modFileZip,Label progress)
         {
             Console.WriteLine("Unzip init.");
@@ -146,7 +144,6 @@ namespace ShiroDownloader
             progress.Text = $"Unzip completed.";
             await Task.Delay(1000);
         }
-
         private async Task Clearing(string modZip, Label progress)
         {
             Console.WriteLine("Clearing temp files.");
@@ -156,7 +153,6 @@ namespace ShiroDownloader
             File.Delete(modZip);
             await Task.Delay(1000);
         }
-
         private async Task Profile(string name, Label progress)
         {
             Console.WriteLine("Creating new launcher profiles.");
