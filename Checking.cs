@@ -74,17 +74,19 @@ namespace ShiroDownloader
             // Check Forge
             Console.WriteLine("Checking Forge...");
             CheckForgeBtn.Visible = false;
+            CheckForgeBtn2.Visible = false;
             string forge = CheckForge();
             Console.WriteLine("Forge directory: " + forge != null ? forge : "Not Installed");
             if (forge != null)
             {
-                checkForge.Text = $"Installed \"Forge 1.12.2\"";
+                checkForge.Text = $"Installed \"" + new DirectoryInfo(forge).Name + "\"";
                 checkPass++;
             }
             else
             {
                 checkForge.Text = "Not installed.";
                 CheckForgeBtn.Visible = true;
+                CheckForgeBtn2.Visible = true;
             }
         }
         private void RefreshBtn_Click(object sender, EventArgs e)
@@ -125,18 +127,15 @@ namespace ShiroDownloader
         {
             string javaHome = Environment.GetEnvironmentVariable("JAVA_HOME");
             string jrePath = @"C:\Program Files\Java";
+            string jrePath86 = @"C:\Program Files (x86)\Java";
             string jdkPath = @"C:\Program Files\Eclipse Adoptium";
             if (javaHome != null) return javaHome;
             else if (Directory.Exists(jdkPath))
-            {
-                string[] dir = Directory.GetDirectories(jdkPath);
-                return dir[0];
-            }
+            { string[] dir = Directory.GetDirectories(jdkPath); return dir[0]; }
             else if (Directory.Exists(jrePath))
-            {
-                string[] dir = Directory.GetDirectories(jrePath);
-                return dir[0];
-            }
+            { string[] dir = Directory.GetDirectories(jrePath); return dir[0]; }
+            else if (Directory.Exists(jrePath86))
+            { string[] dir = Directory.GetDirectories(jrePath86); return dir[0]; }
             else return null;
         }
         private void CheckJavaBtn_Click(object sender, EventArgs e)
@@ -158,12 +157,14 @@ namespace ShiroDownloader
         private static string CheckForge()
         {
             string forgePath = appData + @"\.minecraft\versions\1.12.2-forge-14.23.5.2859";
+            string forgePath2 = appData + @"\.minecraft\versions\1.16.5-forge-36.2.39";
             if (Directory.Exists(forgePath)) return forgePath;
+            else if (Directory.Exists(forgePath2)) return forgePath2;
             else return null;
         }
         private void CheckForgeBtn_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Looks like you doesnt have forge 1.12.2 installed,\nwant to install it now ?", "Shiro", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            var result = MessageBox.Show("Looks like you doesnt have forge 1.12 installed,\nwant to install it now ?", "Shiro", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
                 WebClient client = new WebClient();
@@ -175,6 +176,30 @@ namespace ShiroDownloader
                 {
                     Thread.Sleep(3000);
                     var resultOp = MessageBox.Show("Forge 1.12.2 Installation, is installed\nWant to open it ?", "Shiro", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (resultOp == DialogResult.OK)
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.FileName = tempPath + "\\Forge.jar";
+                        Process.Start(startInfo);
+                    }
+                };
+            }
+        }
+
+        private void CheckForgeBtn2_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Looks like you doesnt have forge 1.16 installed,\nwant to install it now ?", "Shiro", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                WebClient client = new WebClient();
+                client.DownloadFileAsync(
+                    new Uri("https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.5-36.2.39/forge-1.16.5-36.2.39-installer.jar"),
+                    tempPath + "\\Forge.jar"
+                );
+                client.DownloadFileCompleted += (s, args) =>
+                {
+                    Thread.Sleep(3000);
+                    var resultOp = MessageBox.Show("Forge 1.16.5 Installation, is installed\nWant to open it ?", "Shiro", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                     if (resultOp == DialogResult.OK)
                     {
                         ProcessStartInfo startInfo = new ProcessStartInfo();

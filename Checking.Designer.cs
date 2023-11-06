@@ -42,6 +42,7 @@
             this.CheckForgeBtn = new System.Windows.Forms.Button();
             this.RefreshBtn = new System.Windows.Forms.Button();
             this.ContinueBtn = new System.Windows.Forms.Button();
+            this.CheckForgeBtn2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // title
@@ -164,9 +165,9 @@
             this.CheckForgeBtn.ForeColor = System.Drawing.Color.DimGray;
             this.CheckForgeBtn.Location = new System.Drawing.Point(205, 183);
             this.CheckForgeBtn.Name = "CheckForgeBtn";
-            this.CheckForgeBtn.Size = new System.Drawing.Size(75, 23);
+            this.CheckForgeBtn.Size = new System.Drawing.Size(100, 23);
             this.CheckForgeBtn.TabIndex = 15;
-            this.CheckForgeBtn.Text = "Download";
+            this.CheckForgeBtn.Text = "Download 1.12";
             this.CheckForgeBtn.UseVisualStyleBackColor = false;
             this.CheckForgeBtn.Visible = false;
             this.CheckForgeBtn.Click += new System.EventHandler(this.CheckForgeBtn_Click);
@@ -194,12 +195,26 @@
             this.ContinueBtn.UseVisualStyleBackColor = true;
             this.ContinueBtn.Click += new System.EventHandler(this.ContinueBtn_Click);
             // 
+            // CheckForgeBtn2
+            // 
+            this.CheckForgeBtn2.BackColor = System.Drawing.Color.Transparent;
+            this.CheckForgeBtn2.ForeColor = System.Drawing.Color.DimGray;
+            this.CheckForgeBtn2.Location = new System.Drawing.Point(205, 212);
+            this.CheckForgeBtn2.Name = "CheckForgeBtn2";
+            this.CheckForgeBtn2.Size = new System.Drawing.Size(100, 23);
+            this.CheckForgeBtn2.TabIndex = 18;
+            this.CheckForgeBtn2.Text = "Download 1.16";
+            this.CheckForgeBtn2.UseVisualStyleBackColor = false;
+            this.CheckForgeBtn2.Visible = false;
+            this.CheckForgeBtn2.Click += new System.EventHandler(this.CheckForgeBtn2_Click);
+            // 
             // Checking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.CheckForgeBtn2);
             this.Controls.Add(this.ContinueBtn);
             this.Controls.Add(this.RefreshBtn);
             this.Controls.Add(this.CheckForgeBtn);
@@ -239,5 +254,6 @@
         private System.Windows.Forms.Button CheckForgeBtn;
         private System.Windows.Forms.Button RefreshBtn;
         private System.Windows.Forms.Button ContinueBtn;
+        private System.Windows.Forms.Button CheckForgeBtn2;
     }
 }
