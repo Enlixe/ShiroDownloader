@@ -15,7 +15,7 @@ namespace ShiroDownloader
         //* REQUIRED
         private static readonly string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly string pathMc = appData + "\\.minecraft";
-        private static readonly string pathMod = pathMc + "\\Shiro";
+        private string pathMod = pathMc + "\\Shiro";
         public static readonly string tempPath = @".Shiro_Temp";
 
         // ============================================================
@@ -38,6 +38,7 @@ namespace ShiroDownloader
         {
             if (!Directory.Exists(pathMod)) Directory.CreateDirectory(pathMod);
             if (!Directory.Exists(tempPath)) Directory.CreateDirectory(tempPath);
+            if (!Directory.Exists(pathMc + "\\mods")) Directory.CreateDirectory(pathMc + "\\mods");
         }
         private void Main_Shown(object sender, EventArgs e)
         {
@@ -70,18 +71,32 @@ namespace ShiroDownloader
             Logger("Starting Mod Download Task", progress);
             progress.Visible = true;
             modBtn.Visible = false;
+
+            if (File.Exists(pathMc + "\\TLauncher.exe") && name == "Crazy Craft")
+                pathMod = pathMc + $"\\mods\\1.16.5";
+            else if (File.Exists(pathMc + "\\TLauncher.exe"))
+                pathMod = pathMc + $"\\mods\\1.12.2";
+            if (!Directory.Exists(pathMod)) Directory.CreateDirectory(pathMod);
+
             string tempModZip = tempPath + $"\\{name}.zip";
             string modZip = pathMod + $"\\{name}.zip";
+            string unzipDir = pathMod + $"\\{name}\\";
+
+            if (File.Exists(pathMc + "\\TLauncher.exe")) {
+                modZip = pathMod + ".zip";
+                unzipDir = pathMod;
+            }
 
             await Download(name, url, tempModZip, progress);
             await MoveFile(tempModZip, modZip);
-            await Unzip(name, modZip, progress);
+            await Unzip(modZip, unzipDir, progress);
 
             if (name == "Crazy Craft")
             {
                 Logger("Addons - Downloading required files for running this modpacks.", progress);
                 string _tempModZip = tempPath + $"\\CTM-MC1.16.1-1.1.2.6.jar";
                 string _modZip = pathMod + $"\\{name}\\mods\\CTM-MC1.16.1-1.1.2.6.jar";
+                if (File.Exists(pathMc + "\\TLauncher.exe")) _modZip = pathMod + $"\\mods\\CTM-MC1.16.1-1.1.2.6.jar";
                 await Download("CTM", "https://mediafilez.forgecdn.net/files/3137/659/CTM-MC1.16.1-1.1.2.6.jar", _tempModZip, progress);
                 await MoveFile(_tempModZip, _modZip);
             }
@@ -123,9 +138,8 @@ namespace ShiroDownloader
             else { File.Delete(to); File.Move(name, to); }
             await Task.Delay(2000);
         }
-        private async Task Unzip(string name, string modFileZip,Label progress)
+        private async Task Unzip(string modFileZip, string unzipDir,Label progress)
         {
-            string unzipDir = pathMod + $"\\{name}\\";
             Logger("Unzip - Initializing.", progress);
 
             Console.WriteLine($"Unzipping {modFileZip} to {unzipDir}...");
