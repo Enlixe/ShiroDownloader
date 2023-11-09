@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -12,35 +11,38 @@ namespace ShiroDownloader
 {
     public partial class Main : Form
     {
-        static string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        static string pathMc = appData + "\\.minecraft";
-        static string pathMod = appData + "\\.minecraft\\Shiro";
-        public static string tempPath = @".Shiro_Temp";
+        // ============================================================
+        //* REQUIRED
+        private static readonly string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static readonly string pathMc = appData + "\\.minecraft";
+        private static readonly string pathMod = pathMc + "\\Shiro";
+        public static readonly string tempPath = @".Shiro_Temp";
 
-        string modRLCName = "RLCraft";
-        string modRLCUrl = "https://mediafilez.forgecdn.net/files/4487/650/RLCraft+Server+Pack+1.12.2+-+Release+v2.9.2d.zip";
+        // ============================================================
+        //? ADD NEW MOD HERE
+        private static readonly string modRLCName = "RLCraft";
+        private static readonly string modRLCUrl = "https://mediafilez.forgecdn.net/files/4487/650/RLCraft+Server+Pack+1.12.2+-+Release+v2.9.2d.zip";
+        private static readonly string modSF4Name = "Skyfactory 4";
+        private static readonly string modSF4Url = "https://mediafilez.forgecdn.net/files/3565/687/SkyFactory-4_Server_4_2_4.zip";
+        private static readonly string modCCName = "Crazy Craft";
+        private static readonly string modCCUrl = "https://mediafilez.forgecdn.net/files/4773/313/CCU+Server+Pack+Powershell+-+0.9.9.zip";
 
-        string modSF4Name = "Skyfactory 4";
-        string modSF4Url = "https://mediafilez.forgecdn.net/files/3565/687/SkyFactory-4_Server_4_2_4.zip";
-
-        string modCCName = "Crazy Craft";
-        string modCCUrl = "https://mediafilez.forgecdn.net/files/4773/313/CCU+Server+Pack+Powershell+-+0.9.9.zip";
-
+        // ============================================================
+        //* INIT
         public Main()
         {
             InitializeComponent();
             Shown += Main_Shown;
         }
-
         private void Main_Load(object sender, EventArgs e)
         {
             if (!Directory.Exists(pathMod)) Directory.CreateDirectory(pathMod);
             if (!Directory.Exists(tempPath)) Directory.CreateDirectory(tempPath);
         }
-
         private void Main_Shown(object sender, EventArgs e)
         {
-            if (!Checking.checkpassed) {
+            if (!Checking.checkpassed)
+            {
                 Hide();
                 Checking c = new Checking();
                 c.Closed += (s, args) => Close();
@@ -48,108 +50,86 @@ namespace ShiroDownloader
                 return;
             }
 
-            if (Directory.Exists(pathMod + "\\" + modRLCName))
-            {
-                modRLCBtn.Visible = false;
-                modRLC.Visible = true;
-                modRLC.Text = $"Installed on \"{pathMod + "\\" + modRLCName}\"";
-            }
-            if (Directory.Exists(pathMod + "\\" + modSF4Name))
-            {
-                modSF4Btn.Visible = false;
-                modSF4.Visible = true;
-                modSF4.Text = $"Installed on \"{pathMod + "\\" + modSF4Name}\"";
-            }
-            if (Directory.Exists(pathMod + "\\" + modCCName))
-            {
-                modCCBtn.Visible = false;
-                modCC.Visible = true;
-                modCC.Text = $"Installed on \"{pathMod + "\\" + modCCName}\"";
-            }
+            // ========================================================
+            //? ADD NEW MOD INSTALLED CHECK HERE
+            InstalledMod(modRLCName, modRLC, modRLCBtn);
+            InstalledMod(modSF4Name, modSF4, modSF4Btn);
+            InstalledMod(modCCName, modCC, modCCBtn);
         }
 
-        private async void modRLCBtn_Click(object senders, EventArgs ea)
-        {
-            modRLCBtn.Visible = false;
-            modRLC.Visible = true;
-            await StartDownload(modRLCName, modRLCUrl, modRLC);
-        }
+        // ============================================================
+        //? ADD NEW MOD INSTALL BUTTON ON CLICK HERE
+        private async void modRLCBtn_Click(object senders, EventArgs ea) { await StartDownload(modRLCName, modRLCUrl, modRLC, modRLCBtn); }
+        private async void modSF4Btn_Click(object sender, EventArgs e) { await StartDownload(modSF4Name, modSF4Url, modSF4, modSF4Btn); }
+        private async void modCCBtn_Click(object sender, EventArgs e) { await StartDownload(modCCName, modCCUrl, modCC, modCCBtn); }
 
-        private async void modSF4Btn_Click(object sender, EventArgs e)
+        // ============================================================
+        //* MOD INSTALLATION
+        private async Task StartDownload(string name, string url, Label progress, Button modBtn)
         {
-            modSF4Btn.Visible = false;
-            modSF4.Visible = true;
-            await StartDownload(modSF4Name, modSF4Url, modSF4);
-        }
-
-        private async void modCCBtn_Click(object sender, EventArgs e)
-        {
-            modCCBtn.Visible = false;
-            modCC.Visible = true;
-            await StartDownload(modCCName, modCCUrl, modCC);
-        }
-
-        private async Task StartDownload(string name, string url, Label progress)
-        {
+            Logger("Starting Mod Download Task", progress);
+            progress.Visible = true;
+            modBtn.Visible = false;
             string tempModZip = tempPath + $"\\{name}.zip";
             string modZip = pathMod + $"\\{name}.zip";
+
             await Download(name, url, tempModZip, progress);
             await MoveFile(tempModZip, modZip);
             await Unzip(name, modZip, progress);
-            await Clearing(modZip, progress);
-            await Profile(name, progress);
 
             if (name == "Crazy Craft")
             {
-                Console.WriteLine("Downloading Addons - Require for running this modpacks.");
+                Logger("Addons - Downloading required files for running this modpacks.", progress);
                 string _tempModZip = tempPath + $"\\CTM-MC1.16.1-1.1.2.6.jar";
                 string _modZip = pathMod + $"\\{name}\\mods\\CTM-MC1.16.1-1.1.2.6.jar";
                 await Download("CTM", "https://mediafilez.forgecdn.net/files/3137/659/CTM-MC1.16.1-1.1.2.6.jar", _tempModZip, progress);
                 await MoveFile(_tempModZip, _modZip);
-                await Clearing(_tempModZip, progress);
             }
 
+            await Clearing(modZip, progress);
+            await Profile(name, progress);
+
+            Logger("Completed Mod Download", progress);
             MessageBox.Show("Installation Done", "Shiro", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async Task Download(string name, string url, string tempZip, Label progress)
         {
-            if (File.Exists(tempZip)) Console.WriteLine("File existed, continuing");
+            Logger("Download - Initializing.", progress);
+
+            if (File.Exists(tempZip)) Logger("Download - Temp file existed, continuing.", progress);
             else
             {
-                Console.WriteLine("Download init.");
-                progress.Text = "Download - Initializing";
+                Logger($"Download - Downloading {url} to {tempPath}...", progress);
 
-                Console.WriteLine($"Downloading {url} to {tempPath}...");
                 WebClient client = new WebClient();
-
-                client.DownloadProgressChanged += (sender, e) => {
+                client.DownloadProgressChanged += (sender, e) =>
+                {
                     float downloaded = e.BytesReceived / 1048576f;
                     float total = e.TotalBytesToReceive / 1048576f;
-                    progress.Text = $"Download - Downloaded {downloaded.ToString("F1")} MB / {total.ToString("F1")} MB";
+                    Logger($"Download - Downloaded {downloaded:F1} MB / {total:F1} MB", progress);
                 };
-
                 await client.DownloadFileTaskAsync(new Uri(url), tempZip);
 
-                Console.WriteLine("Download complete.");
-                progress.Text = "Download - Completed.";
+                Logger("Download - Completed.", progress);
             }
+            await Task.Delay(2000);
         }
         private async Task MoveFile(string name, string to)
         {
             name = AppDomain.CurrentDomain.BaseDirectory + name;
-            Console.WriteLine($"Moving {name} to {to}");
-            if (!File.Exists(to)) File.Move(name, to); //! PLEASE REDO THIS !!!
-            await Task.Delay(1000);
+            Console.WriteLine($"Move - Moving {name} to {to}");
+            if (!File.Exists(to)) File.Move(name, to);
+            else { File.Delete(to); File.Move(name, to); }
+            await Task.Delay(2000);
         }
         private async Task Unzip(string name, string modFileZip,Label progress)
         {
-            Console.WriteLine("Unzip init.");
-            progress.Text = "Unzip - Initializing";
-
             string unzipDir = pathMod + $"\\{name}\\";
-            if (!Directory.Exists(unzipDir)) Directory.CreateDirectory(unzipDir);
+            Logger("Unzip - Initializing.", progress);
+
             Console.WriteLine($"Unzipping {modFileZip} to {unzipDir}...");
+            if (!Directory.Exists(unzipDir)) Directory.CreateDirectory(unzipDir);
             using (ZipArchive archive = ZipFile.OpenRead(modFileZip)) {
                 int count = 0;
                 foreach (ZipArchiveEntry entry in archive.Entries) {
@@ -167,25 +147,25 @@ namespace ShiroDownloader
                     });
                 }
             }
-            Console.WriteLine("Unzip complete.");
-            progress.Text = $"Unzip completed.";
-            await Task.Delay(1000);
+
+            Logger("Unzip - Completed.", progress);
+            await Task.Delay(2000);
         }
         private async Task Clearing(string modZip, Label progress)
         {
-            Console.WriteLine("Clearing temp files.");
-            progress.Text = $"Clearing temp files.";
-            // if (!Directory.EnumerateFileSystemEntries(tempPath).Any()) Directory.Delete(tempPath);
-            Directory.Delete(tempPath, true);
+            Logger("Cleaner - Clearing temp files.", progress);
+
+            if (Directory.Exists(tempPath)) Directory.Delete(tempPath, true);
             if (File.Exists(modZip)) File.Delete(modZip);
-            await Task.Delay(1000);
+
+            Logger("Cleaner - Completed.", progress);
+            await Task.Delay(2000);
         }
         private async Task Profile(string name, Label progress)
         {
-            Console.WriteLine("Creating new launcher profiles.");
-            progress.Text = $"Creating new launcher profiles.";
-            await Task.Delay(1000);
+            Logger("Profile - Creating new launcher profiles.", progress);
 
+            await Task.Delay(1000);
             JObject launcherProfilesJson = JObject.Parse(File.ReadAllText(pathMc + "\\launcher_profiles.json"));
             JObject newProfile = new JObject(
                 new JProperty("created", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")),
@@ -199,9 +179,26 @@ namespace ShiroDownloader
             );
             string newProfileKey = name;
             launcherProfilesJson["profiles"][newProfileKey] = newProfile;
-
             File.WriteAllText(pathMc + "\\launcher_profiles.json", launcherProfilesJson.ToString());
-            progress.Text = "Installed.";
+
+            Logger("Profile - Completed.", progress);
+        }
+
+        // ============================================================
+        //* HELPER FUNCTION
+        private void InstalledMod(string modName, Label modLabel, Button modBtn)
+        {
+            if (Directory.Exists(pathMod + "\\" + modName))
+            {
+                modBtn.Visible = false;
+                modLabel.Visible = true;
+                modLabel.Text = $"Installed on \"{pathMod + "\\" + modRLCName}\"";
+            }
+        }
+        private void Logger(string message, Label progress)
+        {
+            Console.WriteLine(message);
+            progress.Text = message;
         }
     }
 }

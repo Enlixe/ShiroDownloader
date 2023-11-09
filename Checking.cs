@@ -76,18 +76,23 @@ namespace ShiroDownloader
             CheckForgeBtn.Visible = false;
             CheckForgeBtn2.Visible = false;
             string forge = CheckForge();
+            string forge2 = CheckForge2();
             Console.WriteLine("Forge directory: " + forge != null ? forge : "Not Installed");
+            Console.WriteLine("Forge directory: " + forge2 != null ? forge2 : "Not Installed");
             if (forge != null)
             {
                 checkForge.Text = $"Installed \"" + new DirectoryInfo(forge).Name + "\"";
                 checkPass++;
-            }
-            else
-            {
-                checkForge.Text = "Not installed.";
-                CheckForgeBtn.Visible = true;
+                checkForge2.Text = "Not installed.";
                 CheckForgeBtn2.Visible = true;
             }
+            else if (forge2 != null)
+            {
+                checkForge2.Text = $"Installed \"" + new DirectoryInfo(forge2).Name + "\"";
+                checkPass++;
+                checkForge.Text = "Not installed.";
+                CheckForgeBtn.Visible = true;
+            }   
         }
         private void RefreshBtn_Click(object sender, EventArgs e)
         {
@@ -157,9 +162,13 @@ namespace ShiroDownloader
         private static string CheckForge()
         {
             string forgePath = appData + @"\.minecraft\versions\1.12.2-forge-14.23.5.2859";
-            string forgePath2 = appData + @"\.minecraft\versions\1.16.5-forge-36.2.39";
             if (Directory.Exists(forgePath)) return forgePath;
-            else if (Directory.Exists(forgePath2)) return forgePath2;
+            else return null;
+        }
+        private static string CheckForge2()
+        {
+            string forgePath2 = appData + @"\.minecraft\versions\1.16.5-forge-36.2.39";
+            if (Directory.Exists(forgePath2)) return forgePath2;
             else return null;
         }
         private void CheckForgeBtn_Click(object sender, EventArgs e)

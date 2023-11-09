@@ -43,6 +43,7 @@
             this.RefreshBtn = new System.Windows.Forms.Button();
             this.ContinueBtn = new System.Windows.Forms.Button();
             this.CheckForgeBtn2 = new System.Windows.Forms.Button();
+            this.checkForge2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // title
@@ -208,12 +209,24 @@
             this.CheckForgeBtn2.Visible = false;
             this.CheckForgeBtn2.Click += new System.EventHandler(this.CheckForgeBtn2_Click);
             // 
+            // checkForge2
+            // 
+            this.checkForge2.AutoSize = true;
+            this.checkForge2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkForge2.ForeColor = System.Drawing.Color.MediumPurple;
+            this.checkForge2.Location = new System.Drawing.Point(87, 209);
+            this.checkForge2.Name = "checkForge2";
+            this.checkForge2.Size = new System.Drawing.Size(105, 24);
+            this.checkForge2.TabIndex = 19;
+            this.checkForge2.Text = "Checking...";
+            // 
             // Checking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.checkForge2);
             this.Controls.Add(this.CheckForgeBtn2);
             this.Controls.Add(this.ContinueBtn);
             this.Controls.Add(this.RefreshBtn);
@@ -255,5 +268,6 @@
         private System.Windows.Forms.Button RefreshBtn;
         private System.Windows.Forms.Button ContinueBtn;
         private System.Windows.Forms.Button CheckForgeBtn2;
+        private System.Windows.Forms.Label checkForge2;
     }
 }
